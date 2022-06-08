@@ -1,5 +1,5 @@
 public class gameGrid {
-    boolean[][] grid;
+    boolean[][] grid = new boolean[10][10];
     gameGrid(){
         //sets all the grid squares to false on initialization
         for(int i = 0;i<10;i++){
@@ -16,8 +16,8 @@ public class gameGrid {
         boolean placement = false;
         int x,y;
         while(!placement){
-            x = (int)Math.random()*10;
-            y = (int)Math.random()*10;
+            x = (int)(Math.random()*10);
+            y = (int)(Math.random()*10);
             if(!snake.body.checkCollision(x,y)){
                 placement = true;
             }

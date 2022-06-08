@@ -1,7 +1,7 @@
 public class snake_segment {
-    static int x, y;
-    static snake_segment tail = null;
-    snake_segment(){};
+    int x, y;
+    snake_segment tail = null;
+    snake_segment(){}
     snake_segment(int x, int y){
         this.x = x;
         this.y = y;
