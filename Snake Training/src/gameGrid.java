@@ -14,7 +14,7 @@ public class gameGrid {
     void addFood(snake snk){
         //adds a piece of food to an unoccupied square
         boolean placement = false;
-        int x,y;
+        int x = 0,y = 0;
         while(!placement){
             x = (int)(Math.random()*10);
             y = (int)(Math.random()*10);
@@ -22,5 +22,6 @@ public class gameGrid {
                 placement = true;
             }
         }
+        grid[x][y] = true;
     }
 }

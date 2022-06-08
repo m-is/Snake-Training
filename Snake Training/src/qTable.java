@@ -3,9 +3,9 @@ public class qTable {
     q table has 3^5 states, and 5 actions
     the state can be calculated with this formula
     current = C = 1, north = N = 3, south = S = 9, east = E = 27, west = W = 81
-    P = property of the square where: empty = 0, can = 1, wall = 2
+    P = property of the square where: empty = 0, food = 1, wall/body = 2
     state = C*P + N*P + S*P + E*P + W*P
-    actions: 0 = pick up can, 1 = move north, 2 = move south, 3 = move east, 4 = move west
+    only 3 actions are possible, move forward, turn left, turn right
     */
     static double eta = .2;
     static double gamma = .9;
@@ -14,7 +14,9 @@ public class qTable {
     static double[][] table;// = new double[243][5];
     qTable(){
     }
-
+    qTable(int x, int y){
+        table = new double[x][y];
+    }
 
     public static double lookUp(int state,int action) {
         return table[state][action];
