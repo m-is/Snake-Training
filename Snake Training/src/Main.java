@@ -16,6 +16,13 @@ public class Main {
         QLocalSnake agent1 = new QLocalSnake();
         GASnake agent2 = new GASnake();
         QGlobalSnake agent3 = new QGlobalSnake();
+        display();
+    }
+    public static void display(){
+        Display.init();
+    }
+    public static void testGAsnake(){
+
     }
     //these are some utility functions that will be useful later, but you don't need to worry about them
     private static double calculateStdDev(double avg, int[] trainedReward) {

@@ -1,3 +1,5 @@
+import java.sql.SQLOutput;
+
 public class snake {
     static snake_segment body = null;
     //orientation defines which way the snake is facing
@@ -70,9 +72,6 @@ public class snake {
         //this is intended, this is how it functions in the original Snake game
         return grid.grid[body.x][body.y];
     }
-
-
-
     public boolean checkCollision(int x, int y){
         return body.checkCollision(x,y);
     }
@@ -176,6 +175,20 @@ public class snake {
     private int getState(gameGrid grid){
         //this should return the state determined by what model you are using
         return 0;
+    }
+    public void display(gameGrid grid){
+        for(int i=0;i<10;i++){
+            for(int j=0;j<10;j++){
+                System.out.print("[");
+                if(checkCollision(i,j))
+                    System.out.print("s");
+                else if(gameGrid.checkFood(i,j))
+                    System.out.println("f");
+                else
+                    System.out.println(" ");
+                System.out.println("]");
+            }
+        }
     }
     public static int chooseAction(int state, gameGrid grid) {
         //this should take a state and return an action
