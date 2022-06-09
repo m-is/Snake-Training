@@ -13,9 +13,42 @@ public class Main {
         int[] TrainedReward = new int[episodes];
          */
         //once you create a snake, initialize it, then pass it into the initialize function for the grid ie: grid.initialize(agent#);
+        /*
         QLocalSnake agent1 = new QLocalSnake();
         GASnake agent2 = new GASnake();
         QGlobalSnake agent3 = new QGlobalSnake();
+        */
+        localReinforcement(grid);
+    }
+    public static void localReinforcement(gameGrid grid){
+        QLocalSnake snk = new QLocalSnake();
+        int episodes = 100000;
+        int training = 2000;
+        int[] data = new int[50];
+        for(int i=0;i<episodes;i++){
+            System.out.println("Episode: " + i);
+            snk.initialize();
+            while(!snk.gameOver){
+                grid.grid[snk.getX()][snk.getY()] = snk.getAction(grid);
+                if(grid.empty()){
+                    grid.addFood(snk);
+                }
+                /*
+                if(i>1950) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (Exception e) {
+                    }
+                    snk.display(grid);
+                }
+
+                 */
+            }
+            if(i%2000==0){
+                data[i/2000] = snk.totalReward;
+            }
+        }
+        exportData(data,"qlocalRewards");
     }
     //these are some utility functions that will be useful later, but you don't need to worry about them
     private static double calculateStdDev(double avg, int[] trainedReward) {

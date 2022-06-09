@@ -31,6 +31,7 @@ public class snake {
     void initialize(){
         //the snake is initialized in the same location, facing downward, and with a length of 3
         //this is intended, this is how the snake functions in the actual game
+        gameOver = false;
         int x = 4;
         int y = 8;
         orientation = 2;
@@ -76,7 +77,7 @@ public class snake {
     public boolean checkCollision(int x, int y){
         return body.checkCollision(x,y);
     }
-    private boolean move_forward(){
+    protected boolean move_forward(){
         switch(orientation){
             case 0:
                 return move_up();
@@ -91,7 +92,7 @@ public class snake {
                 return false;
         }
     }
-    private boolean turn_left(){
+    protected boolean turn_left(){
         switch(orientation){
             case 0:
                 orientation = 3;
@@ -110,7 +111,7 @@ public class snake {
                 return false;
         }
     }
-    private boolean turn_right(){
+    protected boolean turn_right(){
         switch(orientation){
             case 0:
                 orientation = 1;
@@ -129,7 +130,7 @@ public class snake {
                 return false;
         }
     }
-    private boolean move_up(){
+    protected boolean move_up(){
         if(body.y == 9){
             return false;
         }
@@ -140,7 +141,7 @@ public class snake {
         }
         return true;
     }
-    private boolean move_right(){
+    protected boolean move_right(){
         if(body.x == 9){
             return false;
         }
@@ -151,7 +152,7 @@ public class snake {
         }
         return true;
     }
-    private boolean move_down(){
+    protected boolean move_down(){
         if(body.y == 0){
             return false;
         }
@@ -162,7 +163,7 @@ public class snake {
         }
         return true;
     }
-    private boolean move_left(){
+    protected boolean move_left(){
         if(body.x == 0){
             return false;
         }
@@ -173,7 +174,7 @@ public class snake {
         }
         return true;
     }
-    private int getState(gameGrid grid){
+    protected int getState(gameGrid grid){
         //this should return the state determined by what model you are using
         return 0;
     }
@@ -181,13 +182,15 @@ public class snake {
         //this should take a state and return an action
         return 0;
     }
-    private static int chooseBest(int state, gameGrid grid){
+    protected static int chooseBest(int state, gameGrid grid){
         //this should take a state, return a best action if possible in the model
         return 0;
     }
     public void decrementEpsilon() {
-        if(epsilon!=0)
+        if(epsilon>0)
             epsilon -= .0025;
+        if(epsilon<0)
+            epsilon = 0;
     }
     public void resetEpsilon(){
         epsilon = .1;

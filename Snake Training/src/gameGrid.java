@@ -1,5 +1,5 @@
 public class gameGrid {
-    boolean[][] grid = new boolean[10][10];
+    static boolean[][] grid = new boolean[10][10];
     gameGrid(){
         //sets all the grid squares to false on initialization
         for(int i = 0;i<10;i++){
@@ -23,5 +23,18 @@ public class gameGrid {
             }
         }
         grid[x][y] = true;
+    }
+    boolean checkFood(int x, int y){
+        return grid[x][y];
+    }
+    boolean empty(){
+        boolean empty = true;
+        for(int i=0;i < 10;i++){
+            for(int j=0;j < 10;j++){
+                if(grid[i][j])
+                    empty = false;
+            }
+        }
+        return empty;
     }
 }

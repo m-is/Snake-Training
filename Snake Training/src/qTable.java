@@ -12,10 +12,14 @@ public class qTable {
     //this declaration has been commented out so the qTable can be changed to be more universal
     //the dimensions commented out are set for local sensors
     static double[][] table;// = new double[243][5];
+    static int states;
+    static int actions;
     qTable(){
     }
-    qTable(int x, int y){
-        table = new double[x][y];
+    qTable(int actions, int states){
+        this.actions = actions;
+        this.states = states;
+        table = new double[states][actions];
     }
 
     public static double lookUp(int state,int action) {
@@ -30,7 +34,7 @@ public class qTable {
 
     private static double maxSucsr(int newState) {
         double max = qTable.lookUp(newState,0);
-        for(int i=0;i<5;i++){
+        for(int i=0;i<actions;i++){
             if(qTable.lookUp(newState,i)>max)
                 max = qTable.lookUp(newState,i);
         }
