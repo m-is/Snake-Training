@@ -26,23 +26,12 @@ public class Main {
         int training = 2000;
         int[] data = new int[50];
         for(int i=0;i<episodes;i++){
-            System.out.println("Episode: " + i);
             snk.initialize();
             while(!snk.gameOver){
                 grid.grid[snk.getX()][snk.getY()] = snk.getAction(grid);
                 if(grid.empty()){
                     grid.addFood(snk);
                 }
-                /*
-                if(i>1950) {
-                    try {
-                        Thread.sleep(500);
-                    } catch (Exception e) {
-                    }
-                    snk.display(grid);
-                }
-
-                 */
             }
             if(i%2000==0){
                 data[i/2000] = snk.totalReward;
