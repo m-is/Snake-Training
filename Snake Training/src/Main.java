@@ -33,7 +33,7 @@ public class Main {
             while(!snk.gameOver){
                 grid.grid[snk.getX()][snk.getY()] = snk.getAction(grid);
                 if(grid.empty()){
-                    grid.addFood(snk);
+                    grid.addFood();
                 }
             }
             if(i%2000==0){

@@ -1,6 +1,5 @@
 public class GASnake extends snake{
     int score = -1; //init check can be done on this.
-    double mutation_rate = 0.05;
     public double [][] i1_h1 = new double [7][5];     //Weights for Input -> Hidden Layer1
     public double [][] h1_o1 = new double [5][3];     //Weights for Hidden Layer1  to output
        

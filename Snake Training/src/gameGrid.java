@@ -11,9 +11,9 @@ public class gameGrid {
         }
     }
     void initialize(snake snk){
-        addFood(snk);
+        addFood();
     }
-    void addFood(snake snk){
+    void addFood(){
         //adds a piece of food to an unoccupied square
         boolean placement = false;
         int x = 0,y = 0;
