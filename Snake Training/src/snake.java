@@ -73,7 +73,19 @@ public class snake {
     }
 
 
-
+    protected int nextToWall(){
+        int walls = 0;
+        if(checkCollision(getX()+1,getY())||getX()==9)
+            walls++;
+        if(checkCollision(getX()-1,getY())||getX()==0)
+            walls++;
+        if(checkCollision(getX(),getY()+1)||getY()==9)
+            walls++;
+        if(checkCollision(getX(),getY()-1)||getY()==0)
+            walls++;
+        walls--;
+        return walls;
+    }
     public boolean checkCollision(int x, int y){
         return body.checkCollision(x,y);
     }

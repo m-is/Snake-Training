@@ -19,22 +19,77 @@ public class Main {
         QGlobalSnake agent3 = new QGlobalSnake();
         */
         localReinforcement(grid);
+
+        //globalReinforcement(grid);
     }
-    public static void localReinforcement(gameGrid grid){
-        QLocalSnake snk = new QLocalSnake();
-        int episodes = 100000;
-        int training = 2000;
-        int[] data = new int[50];
+    private static void display(gameGrid grid,snake snk){
+
+    }
+    private static void globalReinforcement(gameGrid grid) {
+        QGlobalSnake snk = new QGlobalSnake();
+        int episodes = 1000000;
+        int training = 200000;
+        int epoch = 100000;
+        int[] rewardPlot = new int[100];
+        int best = 0;
         for(int i=0;i<episodes;i++){
             snk.initialize();
+            grid.initialize(snk);
+            System.out.println(i);
             while(!snk.gameOver){
                 grid.grid[snk.getX()][snk.getY()] = snk.getAction(grid);
                 if(grid.empty()){
                     grid.addFood(snk);
                 }
+
             }
-            if(i%2000==0){
-                data[i/2000] = snk.totalReward;
+            if(snk.totalReward>best)
+                best = snk.totalReward;
+            if(i%training==0){
+                snk.decrementEpsilon();
+            }
+            if(i%epoch==0){
+                rewardPlot[i/epoch] = best;
+                best = 0;
+            }
+        }
+        exportData(rewardPlot,"qGlobalRewards");
+    }
+
+    public static void localReinforcement(gameGrid grid){
+        QLocalSnake snk = new QLocalSnake();
+        int episodes = 10000;
+        int training = 200;
+        int endOfTraining = 40*training;
+        int[] data = new int[50];
+        int best = 0;
+        for(int i=0;i<episodes;i++){
+            snk.initialize();
+            System.out.println(i);
+            for(int j = 0;j<200;j++){
+                grid.grid[snk.getX()][snk.getY()] = snk.getAction(grid);
+                if(grid.empty()){
+                    grid.addFood(snk);
+                }
+                if(snk.gameOver){
+                    snk.initialize();
+                }
+                /*
+                if(i>endOfTraining){
+                   snk.display(grid);
+                    try {
+                        Thread.sleep(200);
+                    }catch(Exception e){};
+                }
+
+                 */
+                if(best<snk.totalReward)
+                    best = snk.totalReward;
+            }
+            if(i%training==0){
+                snk.decrementEpsilon();
+                data[i/training] = best;
+                best = 0;
             }
         }
         exportData(data,"qlocalRewards");

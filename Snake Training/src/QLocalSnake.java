@@ -3,10 +3,12 @@ public class QLocalSnake extends snake{
     static int totalReward = 0;
 
     QLocalSnake(){
-        table = new qTable(3,243);
+        table = new qTable(3,8748);
     }
     public void initialize(){
         super.initialize();
+        body.add_segment();
+        move_forward();
         totalReward = 0;
     }
     public boolean getAction(gameGrid grid){
@@ -15,6 +17,7 @@ public class QLocalSnake extends snake{
         int state = getState(grid);
         int action = chooseAction(state);
         int reward = 0;
+        int initDist = calcDist(grid,getX(),getY());
         switch(action){
             //movement actions, will function as intended unless the snake runs into a wall or its own body
             case 0:
@@ -37,14 +40,31 @@ public class QLocalSnake extends snake{
         }
         //updates the table with proper rewards
         reward = grid.checkFood(getX(),getY())?10:(gameOver?-5:0);
+        reward += (initDist>calcDist(grid,getX(),getY())?1:-1);
+        if(grid.checkFood(getX(),getY())) {
+            totalReward++;
+            body.add_segment();
+        }
         qTable.update(state,getState(grid),action,reward);
-        totalReward += reward;
         //this clause checks if the snake has run over food, if it has we need to add a segment
         //the segment gets added, but it won't actually be created on the grid until the snake makes another movement
         //this is intended, this is how it functions in the original Snake game
         return false;
     }
-
+    private int calcDist(gameGrid grid, int x, int y){
+        int foodX = x;
+        int foodY = y;
+        for(int i=0;i<10;i++){
+            for(int j=0;j<10;j++){
+                if(grid.grid[i][j]){
+                    foodX = i;
+                    foodY = j;
+                }
+            }
+        }
+        int dist = Math.abs(x-foodX) + Math.abs(y-foodY);
+        return dist;
+    }
     protected int getState(gameGrid grid){
         int state = 0;
         //checks each square in the five square detection area
@@ -58,8 +78,36 @@ public class QLocalSnake extends snake{
         state += 27*getProperty(grid,getX()+1,getY());
         //left square
         state += 81*getProperty(grid,getX()-1,getY());
+        state += 243*getRelativeFoodX(grid,getX());
+        state += 729*getRelativeFoodY(grid,getY());
+        state += 2187*orientation;
         return state;
     }
+
+    private int getRelativeFoodY(gameGrid grid, int y) {
+        int food_y = 0;
+        for (int i = 0; i < 10; i++)
+            for (int j = 0; j < 10; j++)
+                if (grid.grid[i][j] == true) food_y = j;
+        if (y == food_y) return 0;
+        else if (y > food_y) return 1;
+        else if (y < food_y) return 2;
+        else
+            return 0;
+    }
+
+    private int getRelativeFoodX(gameGrid grid, int x) {
+
+            int food_x = 0;
+            for(int i = 0;i<10;i++)
+                for(int j = 0;j<10;j++)
+                    if(grid.grid[i][j]==true) food_x=i;
+            if(x==food_x) return 0;
+            else if (x>food_x) return 1;
+            else if(x<food_x) return 2;
+            return 0;
+    }
+
     protected int chooseAction(int state){
         if(Math.random()>(1-epsilon))
             return (int)(Math.random()*3);
