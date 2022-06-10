@@ -18,6 +18,9 @@ public class Main {
         GASnake agent2 = new GASnake();
         QGlobalSnake agent3 = new QGlobalSnake();
         */
+        GASnake agent2 = new GASnake();  
+        double [] wts = agent2.getWeights(agent2);
+        agent2.showWeights(wts);
         localReinforcement(grid);
     }
     public static void localReinforcement(gameGrid grid){

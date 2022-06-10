@@ -1,4 +1,6 @@
 public class gameGrid {
+    int food_x; //Used for GA
+    int food_y; //Used for GA
     static boolean[][] grid = new boolean[10][10];
     gameGrid(){
         //sets all the grid squares to false on initialization
@@ -22,6 +24,8 @@ public class gameGrid {
                 placement = true;
             }
         }
+        food_x = x;
+        food_y = y;
         grid[x][y] = true;
     }
     boolean checkFood(int x, int y){
@@ -36,5 +40,12 @@ public class gameGrid {
             }
         }
         return empty;
+    }
+
+    int [] locateFood(){
+        int [] location = new int [2];
+        location[0] = food_x;
+        location[1] = food_y;;
+        return location;
     }
 }
