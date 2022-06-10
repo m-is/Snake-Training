@@ -21,6 +21,9 @@ public class Main {
         GASnake agent2 = new GASnake();  
         boolean huh = agent2.getAction(grid);
         System.out.println(huh);
+
+        GAPop GASneks = new GAPop();
+        GASneks.playSnake();
         localReinforcement(grid);
     }
     public static void localReinforcement(gameGrid grid){

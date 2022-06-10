@@ -47,9 +47,9 @@ public class GASnake extends snake{
             }
         }
 
-        for(int test = 0; test < 3; ++test){
-            System.out.println(out[test]);
-        }
+        //for(int test = 0; test < 3; ++test){
+        //    System.out.println(out[test]);
+        //}
         //At this point, index of the highest value of out[] is the action
         action = 0;
         max = out[0];
@@ -103,7 +103,7 @@ public class GASnake extends snake{
     public int [] GAcheats(int x, int y, int orientation, gameGrid grid){
         // x / y is snake body location.
         int [] toReturn = new int [3];  //0 = front, 1 = left, 2 = right
-        System.out.println(orientation);
+        //System.out.println(orientation);
         switch(orientation){
             case 0: // Front == north
                 toReturn[0] = getProperty(grid, x, y+1); 
