@@ -93,7 +93,7 @@ public class GASnake extends snake{
         input[2] = this.getX(); // Body X
         input[3] = this.getY(); // Body Y
         int [] sensors = GAcheats(input[2], input[3], orientation, grid); // Could be placed better.
-        input[4] = sensors[0]; //What is the collision for in front 
+        input[4] = sensors[0]; //What is the collision to the front 
         input[5] = sensors[1]; //What is the collision to the left 
         input[6] = sensors[2]; //What is the collision to the right
  

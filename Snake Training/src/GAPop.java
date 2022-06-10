@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class GAPop {
     public GASnake [] population;
     public int popScores[];
@@ -27,7 +25,7 @@ public class GAPop {
                 gameGrid grid = new gameGrid(); //Each pop needs a grid to play on.
                 int sanityCount = 0;
                 while(!population[pop].gameOver){
-                    if(sanityCount > 2000){
+                    if(sanityCount > 10000){
                         break;
                     }
                     //System.out.println("Test");
