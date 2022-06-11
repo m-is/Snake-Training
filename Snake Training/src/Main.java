@@ -61,7 +61,7 @@ public class Main {
         int episodes = 10000;
         int training = 200;
         int endOfTraining = 40*training;
-        int[] data = new int[50];
+        int[] data = new int[501];
         int best = 0;
         for(int i=0;i<episodes;i++){
             snk.initialize();
@@ -86,12 +86,13 @@ public class Main {
                 if(best<snk.totalReward)
                     best = snk.totalReward;
             }
-            if(i%training==0){
+            if(i%20==0){
                 snk.decrementEpsilon();
-                data[i/training] = best;
+                data[i/20] = best;
                 best = 0;
             }
         }
+        data[500] = best;
         exportData(data,"qlocalRewards");
     }
     //these are some utility functions that will be useful later, but you don't need to worry about them
